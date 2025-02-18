@@ -10,15 +10,15 @@ const router = express.Router();
 router.post("/", authenticateToken, async (req, res) => {
   try {
     const { group_name, msg, token, secret } = req.body;
-    const newLineLog = await LineLog.create({
-      group_name,
-      msg,
-      token,
-      secret,
-      status: "New",
-      created_at: new Date(),
-      updated_at: new Date(),
-    });
+    const newLineLog = await LineLog.create(
+      {
+        group_name,
+        msg,
+        token,
+        secret,
+        status: "New",
+      }
+    );
     res.status(201).json({ message: "line_logs added" , id: newLineLog.id});
   } catch (err) {
     res.status(500).json({ error: err.message });

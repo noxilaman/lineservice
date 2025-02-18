@@ -9,8 +9,9 @@ const sequelize = new Sequelize(
     host: process.env.DB_SERVER,
     dialect: "mssql",
     dialectOptions: {
-      options: { encrypt: false }, // Adjust based on your MSSQL setup
+      options: { encrypt: false, timezone: "UTC" }, // Adjust based on your MSSQL setup
     },
+    timezone: "+07:00",
     logging: false, // Disable query logging
   }
 );

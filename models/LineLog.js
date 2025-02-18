@@ -25,20 +25,21 @@ const LineLog = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
   },
   {
-    tableName: "line_logs",
-    timestamps: false,
+    timestamps: true,
+    createdAt: "created_at",
+    updatedAt: "updated_at",
+    hooks: {
+        beforeCreate: (lineLog) => {
+            lineLog.createdAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            lineLog.updatedAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            console.log(lineLog.createdAt);
+        },
+        beforeUpdate: (user) => {
+            lineLog.updatedAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        }
+    }
   }
 );
 
